@@ -1,0 +1,29 @@
+---
+- name: Check is brew already installed
+  stat:
+    path: "{{  brew_install_path  }}"
+  register: brew_exists
+
+- name: Install brew
+  shell: brew-installation-script.sh
+  when: not brew_exists.stat.exists
+
+- name: Check is java present
+  stat:
+      path: "{{ java_path }}"
+  register: java_exists
+
+- name: Install jenkins 
+  homebrew: 
+    name: "{{  homebrew_packages  }}"
+    state: present
+  register: jenkins
+  when: java_exists.stat.exists
+
+- name: Start jenkins
+  command:  '"{{ brew_bin_path }}" services start jenkins'
+  when: jenkins is succeeded
+
+- name: Check is jenkins started
+  command:  '"{{ brew_bin_path }}" services list | grep jenkins'
+  failed_when: not "'jenkins' in output"

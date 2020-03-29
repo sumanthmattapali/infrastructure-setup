@@ -1,0 +1,7 @@
+---
+# vars file for jenkins-ansible-role
+
+homebrew_packages:
+  - jenkins
+
+...  

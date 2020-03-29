@@ -1,0 +1,42 @@
+--- 
+- name: Install java 
+  yum: 
+    name: java-1.8.0-openjdk
+    state: present
+  register: java
+
+- name: Update epel-release
+  yum:
+    name: epel-release
+    state: latest
+  when: java is succeeded
+  register: epel-updated
+  # https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html  
+
+- name: Downloading jenkins.repo
+  get_url:
+    url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+  
+- name: Importing jenkins key
+  rpm_key:
+    key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+    state: present 
+
+- name: Installing jenkins
+  yum:
+    name: jenkins
+    state: latest
+
+- name: Enable jenkins as service
+  systemd:
+    no_block: yes
+    name: jenkins 
+    enabled: yes 
+    masked: no
+    state: started
+
+- name: Check jenkins started
+  service:
+      name: jenkins 
+      state: started 

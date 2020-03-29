@@ -1,0 +1,6 @@
+---
+# defaults file for install-brew-role
+java_path: /Library/Java/JavaVirtualMachines/
+brew_prefix: /usr/local
+brew_install_path: "{{ brew_prefix }}/Homebrew"
+brew_bin_path: "{{ brew_prefix }}/bin/brew"

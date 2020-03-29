@@ -1,0 +1,9 @@
+---
+- include_tasks:
+    file: centos-playbook.yml
+  when: ansible_distribution == 'CentOS'
+
+- include_tasks:
+    file: macos-playbook.yml
+  when: ansible_distribution == 'MacOSX' or ansible_distribution == 'Darwin'
+...

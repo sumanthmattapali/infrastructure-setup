@@ -1,0 +1,10 @@
+---
+ - hosts: all
+   gather_facts: true
+   roles:
+   - include_role:
+     name: common
+     vars_files: defaults
+   - include_role:
+     name: jenkins-installation-role
+...

@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Ansible template
+*.retry
+
+# User-specific stuff
+.idea
+*.iml
+*.code-workspace
+.DS_Store
+
